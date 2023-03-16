@@ -35,7 +35,11 @@ pub fn add_two(a: i32) -> i32 {
 }
 
 pub fn greeting(name: &str) -> String {
-    String::from("Hello!")
+    format!("Hello, {}!", name)
+}
+
+fn internal_adder(a: i32, b: i32) -> i32 {
+    a + b
 }
 
 #[cfg(test)]
@@ -74,6 +78,13 @@ mod tests {
     }
 
     #[test]
+    #[ignore]
+    fn expensive_test() {
+        println!("This test is ignored, unless specified to run");
+    }
+
+
+    #[test]
     fn smaller_cannot_hold_larger() {
         let larger = Rectangle {
             width: 8,
@@ -93,6 +104,21 @@ mod tests {
     }
 
     #[test]
+    fn add_two_and_two() {
+        assert_eq!(4, add_two(2));
+    }
+
+    #[test]
+    fn add_three_and_two() {
+        assert_eq!(5, add_two(3));
+    }
+
+    #[test]
+    fn one_hundred() {
+        assert_eq!(102, add_two(100));
+    }
+
+    #[test]
     fn greeting_contains_name() {
         let result = greeting("Carol");
         assert!(
@@ -106,5 +132,10 @@ mod tests {
     #[should_panic]
     fn greater_than_100() {
         Guess::new(200);
+    }
+
+    #[test]
+    fn internal() {
+        assert_eq!(4, internal_adder(2, 2));
     }
 }
